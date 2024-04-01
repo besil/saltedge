@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "saltedge"
+version = "0.1.0"
+description = ""
+authors = ["besil <silvio.bernardinello@outlook.com>"]
+license = "apache v2"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+cryptography = "^42.0.5"
+black = {extras = ["d"], version = "^24.3.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+black = {extras = ["d"], version = "^24.3.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#what-on-earth-is-a-pyproject-toml-file
+[tool.black]
+line-length = 79
+target-version = ['py311']
