@@ -34,7 +34,7 @@ class CountryDTO(TypedDict):
     ]
 
 
-class CountriesAPI(ListAPI[CountryDTO], BaseAPI):
+class CountriesAPI(ListAPI[CountryDTO]):
     _path = "countries"
     _response_dto_class = CountryDTO
 

@@ -1,7 +1,7 @@
 import datetime as dt
-from typing import TypedDict, NotRequired, Literal, Iterator
+from typing import TypedDict, NotRequired, Literal
 
-from saltedge.api import CreateAPI, BaseAPI, RQ, RP
+from saltedge.api import CreateAPI, DeleteAPI, BaseAPI
 
 
 class KycDTO(TypedDict):
@@ -29,9 +29,32 @@ class CreatedLeadResponseDTO(TypedDict):
     identifier: str
 
 
-class LeadsAPI(CreateAPI[CreateLeadDTO, CreatedLeadResponseDTO], BaseAPI):
-    _path = "leads"
-    _response_dto_class = CreatedLeadResponseDTO
+class DeletedLeadResponseDTO(TypedDict):
+    deleted: bool
+    lead_email: str
 
-    def create(self, payload: CreateLeadDTO, *args, **kwargs) -> CreatedLeadResponseDTO:
-        return super().create(payload)
+
+class LeadsAPI:
+    class CreateLeadsAPI(
+        CreateAPI[CreatedLeadResponseDTO], BaseAPI
+    ):
+        _path = "leads"
+        _response_dto_class = CreatedLeadResponseDTO
+
+        # def create(self, payload: CreateLeadDTO, *args, **kwargs) -> CreatedLeadResponseDTO:
+        #     return super().create(payload)
+
+    class DeleteLeadsAPI(DeleteAPI[DeletedLeadResponseDTO], BaseAPI):
+        _path = "leads"
+        _response_dto_class = DeletedLeadResponseDTO
+
+    def __init__(self, client, base_url):
+        super().__init__()
+        self._create_api = self.CreateLeadsAPI(client, base_url=base_url)
+        self._delete_api = self.DeleteLeadsAPI(client, base_url=base_url)
+
+    def create(self, payload: CreateLeadDTO) -> CreatedLeadResponseDTO:
+        return self._create_api.create(payload=payload)
+
+    def delete(self, customer_id: int) -> DeletedLeadResponseDTO:
+        return self._delete_api.delete(customer_id=customer_id)

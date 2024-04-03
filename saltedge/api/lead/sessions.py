@@ -1,6 +1,7 @@
 from typing import TypedDict, Literal, NotRequired
 
-from saltedge.api import CreateAPI, BaseAPI, RQ, RP
+from saltedge.api import CreateAPI, BaseAPI
+from saltedge.logging import log
 
 
 class KycDTO(TypedDict):
@@ -9,7 +10,7 @@ class KycDTO(TypedDict):
 
 ALL_CONSENTS = [
     "account_details",
-    #"holder_information",
+    # "holder_information",
     "transactions_details",
 ]
 
@@ -28,7 +29,7 @@ class ConsentDTO(TypedDict):
     ]
     from_date: NotRequired[str]  # 2024-03-01, with 365 days ago
     to_date: NotRequired[str]  # 2024-03-01
-    period_days: NotRequired[int] = None
+    period_days: NotRequired[int]
 
 
 class AttemptDTO(TypedDict):
@@ -173,9 +174,7 @@ class LeadSessionCreatedResponseDTO(TypedDict):
     redirect_url: str
 
 
-class LeadSessionCreateAPI(
-    CreateAPI[LeadSessionDTO, LeadSessionCreatedResponseDTO], BaseAPI
-):
+class LeadSessionCreateAPI(CreateAPI[LeadSessionCreatedResponseDTO]):
     _path = "lead_sessions/create"
     _response_dto_class = LeadSessionCreatedResponseDTO
 
@@ -185,12 +184,12 @@ class LeadSessionCreateAPI(
         return super().create(payload)
 
 
-class LeadSessionAPI(BaseAPI):
+class LeadSessionAPI:
     def __init__(self, client, base_url):
-        super().__init__(client, base_url=base_url)
         self._create_api = LeadSessionCreateAPI(client, base_url=base_url)
 
     def create(self, payload: LeadSessionDTO) -> LeadSessionCreatedResponseDTO:
+        log.debug("Create a lead")
         return self._create_api.create(payload=payload)
 
     def reconnect(self):

@@ -2,7 +2,7 @@ from abc import ABC
 
 from saltedge.api.countries import CountriesAPI
 from saltedge.api.lead.leads import LeadsAPI
-from saltedge.api.lead.session import LeadSessionAPI
+from saltedge.api.lead.sessions import LeadSessionAPI
 from saltedge.api.providers import ProviderAPI
 from saltedge.http import SaltedgeHttpClient
 

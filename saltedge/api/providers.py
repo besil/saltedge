@@ -1,7 +1,7 @@
 import datetime as dt
 from typing import TypedDict, Literal, Any
 
-from saltedge.api import ListAPI, BaseAPI, RetrieveAPI, CreateAPI
+from saltedge.api import ListAPI, BaseAPI, RetrieveAPI, CreateAPI, BaseAPI
 
 
 class ProviderDTO(TypedDict):
