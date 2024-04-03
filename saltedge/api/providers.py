@@ -1,7 +1,7 @@
 import datetime as dt
 from typing import TypedDict, Literal, Any
 
-from saltedge.api import ListAPI, BaseAPI, RetrieveAPI, T
+from saltedge.api import ListAPI, BaseAPI, RetrieveAPI, CreateAPI
 
 
 class ProviderDTO(TypedDict):
@@ -50,7 +50,8 @@ class ProviderDTO(TypedDict):
 
 class ProviderAPI(ListAPI[ProviderDTO], RetrieveAPI[ProviderDTO], BaseAPI):
     _path = "providers"
-    _dto_class = ProviderDTO
+    _response_dto_class = ProviderDTO
 
-    def show(self, code: str = None, *args, **kwargs) -> T:
+    def show(self, code: str = None, *args, **kwargs) -> ProviderDTO:
         return super().show(code)
+

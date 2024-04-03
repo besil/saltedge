@@ -36,7 +36,7 @@ class CountryDTO(TypedDict):
 
 class CountriesAPI(ListAPI[CountryDTO], BaseAPI):
     _path = "countries"
-    _list_dto_class = CountryDTO
+    _response_dto_class = CountryDTO
 
     def list(self, country_code: str = None, **kwargs) -> Iterator[CountryDTO]:
         if country_code:
