@@ -1,5 +1,7 @@
 import datetime as dt
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, Iterator
+
+from saltedge.api import ListAPI, BaseAPI, RP
 
 
 class FloatingInterestRateDTO(TypedDict):
@@ -54,3 +56,51 @@ class AccountExtraDTO(TypedDict):
     transactions_count: dict
     payment_type: str
     cashback_amount: float
+
+
+class AccountDTO(TypedDict):
+    id: str
+    name: str
+    nature: Literal[
+        "account",
+        "bonus",
+        "card",
+        "checking",
+        "credit",
+        "credit_card",
+        "debit_card",
+        "ewallet",
+        "insurance",
+        "investment",
+        "loan",
+        "mortgage",
+        "savings",
+    ]
+    balance: float
+    currency_code: str
+    extra: AccountExtraDTO
+    connection_id: str
+    created_at: str
+    updated_at: str
+
+
+class AccountAPI(ListAPI[AccountDTO], BaseAPI):
+    _path = "accounts"
+    _response_dto_class = AccountDTO
+
+    def list(
+        self, connection_id: str = None, customer_id: str = None
+    ) -> Iterator[AccountDTO]:
+        params = dict()
+        match (connection_id, customer_id):
+            case (None, None):
+                raise ValueError(
+                    "Connection_id and customer_id can't be both None"
+                )
+            case x, None if x is not None:
+                params["connection_id"] = x
+            case None, y if y is not None:
+                params["customer_id"] = y
+            case x, y if x is not None and y is not None:
+                params["connection_id"] = x
+        return super().list(**params)
