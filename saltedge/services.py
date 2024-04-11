@@ -1,9 +1,11 @@
 from abc import ABC
 
+from saltedge.api.connections import ConnectionAPI
 from saltedge.api.countries import CountriesAPI
 from saltedge.api.lead.leads import LeadsAPI
 from saltedge.api.lead.sessions import LeadSessionAPI
 from saltedge.api.providers import ProviderAPI
+from saltedge.api.transactions import TransactionAPI
 from saltedge.http import SaltedgeHttpClient
 
 
@@ -17,6 +19,8 @@ class BaseSaltedgeService(ABC):
         self.providers = ProviderAPI(client, self.base_url)
         self.leads = LeadsAPI(client, self.base_url)
         self.lead_session = LeadSessionAPI(client, self.base_url)
+        self.connections = ConnectionAPI(client, self.base_url)
+        self.transactions = TransactionAPI(client, self.base_url)
 
 
 class BasePartnerService(BaseSaltedgeService):

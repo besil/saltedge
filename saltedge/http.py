@@ -77,11 +77,11 @@ class SaltedgeHttpClient:
             payload=payload,
         )
 
-    def delete(self, url, query_params:dict=None) -> dict:
-        return self._request(
-            self.HttpMethod.DELETE,
-            url,
-            query_params=query_params
+    def delete(self, url, query_params: dict = None) -> dict:
+        return next(
+            self._request(
+                self.HttpMethod.DELETE, url, query_params=query_params
+            )
         )
 
     def _sign(self, message):

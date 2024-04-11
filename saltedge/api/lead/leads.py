@@ -56,5 +56,5 @@ class LeadsAPI:
     def create(self, payload: CreateLeadDTO) -> CreatedLeadResponseDTO:
         return self._create_api.create(payload=payload)
 
-    def delete(self, customer_id: int) -> DeletedLeadResponseDTO:
+    def delete(self, customer_id: str) -> DeletedLeadResponseDTO:
         return self._delete_api.delete(customer_id=customer_id)
