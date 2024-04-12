@@ -18,10 +18,16 @@ jobs:
       with:
         python-version: '3.11.6'
 
+    - name: Install pipx
+      run: |
+        sudo apt update
+        sudo apt install pipx
+        pipx ensurepath
+        sudo pipx ensurepath --global # optional to allow pipx actions with --global argument
+
     - name: Install Poetry
       run: |
-        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-        export PATH="$HOME/.poetry/bin:$PATH"
+        pipx install poetry
 
     - name: Install dependencies
       run: |
