@@ -12,7 +12,6 @@ repository = "https://github.com/besil/saltedge"
 python = "^3.11"
 requests = "^2.31.0"
 cryptography = "^42.0.5"
-black = {extras = ["d"], version = "^24.3.0"}
 
 
 [tool.poetry.group.dev.dependencies]
