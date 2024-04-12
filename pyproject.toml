@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "saltedge"
-version = "0.1.1"
+version = "0.1.2"
 description = "A simple python wrapper around saltedge api with some utilities."
 authors = ["besil <silvio.bernardinello@outlook.com>"]
 license = "apache v2"
