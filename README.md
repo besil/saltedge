@@ -6,7 +6,14 @@ A simple python wrapper around [saltedge](https://docs.saltedge.com/general/) ap
 - Modular design
 - Dynamic payload with typing support with TypedDict
 
-# Quickstart - Partner Account API (AISP)
+# Quickstart 
+
+## Installation
+```
+pip install saltedge
+```
+
+## Partner API overview (AISP)
 https://docs.saltedge.com/partners/v1/#quick_start
 ```python
 import datetime as dt
