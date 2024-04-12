@@ -8,7 +8,7 @@ A simple python wrapper around [saltedge](https://docs.saltedge.com/general/) ap
 
 # Quickstart 
 
-## Installation
+## Installation
 ```
 pip install saltedge
 ```
